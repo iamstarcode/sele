@@ -1,7 +1,14 @@
+const chrome = require('selenium-webdriver/chrome');
+
+const options = new chrome.Options();
+
 const { Builder, Browser, By, Key, until } = require('selenium-webdriver');
 
 (async function example() {
-  let driver = await new Builder().forBrowser(Browser.CHROME).build();
+  let driver = new Builder()
+    .forBrowser(Browser.CHROME)
+    .setChromeOptions(options.addArguments('--headless'))
+    .build();
   try {
     await driver.get('https://www.google.com/ncr');
     await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
